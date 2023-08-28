@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>InicioSesionVeterinario</title>
+        <f:event type="preRenderView" listener="#{SesionVeterinario.verificarSesionVeterinario()}" />
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>           
+    </h:head>
+
+    <h:body style=" background-image: url(registro5.jpg)" >
+        <h:form>
+            <h1 style=" text-align: center ; color: white; font-family: serif; font-size: 100px" >A r e s  V e t</h1>  
+
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+
+                    background-image: linear-gradient(150deg,#FEF9E7 ,#F6DDCC,#F1948A ,#7DCEA0,#A3E4D7,#85929E);
+                    background-size: 140%;
+                    height: 100vh;
+                    animation: fanimado 50s infinite;
+
+                }
+
+                @keyframes fanimado {
+                    0%{
+                    background-position: 0% 50%;
+                }
+                50%{
+                    background-position: 100% 50%;
+                }
+                100%{
+                    background-position: 0% 50%;
+                }
+
+                }
+
+            </style>
+
+
+        </h:form>  
+        <h:form>
+            <h3 style="color: white" >Bienvenido #{SesionVeterinario.veterinarioSesion.nombres} #{SesionVeterinario.veterinarioSesion.apellidos}</h3>    
+
+            <div class="card">
+
+                <p:tabMenu  style="border-color: black ">
+                    <p:menuitem value="Veterinario">
+                        <h:commandLink value="Usuario" styleClass="btn btn-large , color : blue " action="EditVeterinario.xhtml"  style="color: cornsilk"/>
+                    </p:menuitem>
+                    <p:menuitem value="Cerrar Sesion" >
+                        <h:commandLink value="Cerrar Sesion" styleClass="btn btn-large , color : blue   " action="#{SesionVeterinario.cerrarSesion()}" style="color: cornsilk "/>
+                    </p:menuitem>
+                </p:tabMenu>
+            </div>
+        </h:form>
+        <style>
+            .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+
+            .customPanelGrid .ui-panelgrid-content {
+                align-items: center;
+            }
+        </style>
+
+        <div class="container">
+            <div class="center-align">
+                <div class="row">
+                    <div class="col s6 offset-s3" >
+
+
+                        <h:form >  
+
+                            <div class="center-align">
+                                <div class="col s12 input-field" >
+                                    <h3 style="color :   white ; font-family: serif" >Citas Virtuales por Atender de tu Clinica:</h3>
+                                </div>
+
+                                <p:dataTable var="idx_cli" value="#{SesionVeterinario.citasVirtuales}">
+                                    <p:column headerText="ID Cita">
+                                        <h:outputText value="#{idx_cli.idcita}"/>
+                                    </p:column>
+                                    <p:column headerText="ID Cliente" >
+                                        <h:outputText value="#{idx_cli.idcliente.apellidos}"/>
+                                    </p:column>
+                                    <p:column headerText="Estado" >
+                                        <h:outputText value="#{idx_cli.estado}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="col s12 input-field" >
+                                <h5 style="color :  black; font-family: serif" >Ingresa una Cita Virtual por Atender:</h5>
+                            </div>
+
+                            <div class="col s12 input-field" >
+                                <h:inputText  required="true" requiredMessage="Ingresa una Cita!" value="#{SesionVeterinario.idCita}"/>
+                                <h:outputLabel for="ID Cita Por Atender" value="ID Cita Por Atender" style="color: black; font-family: serif; font-size: 30" />
+                            </div>
+                            <div class="center-align">
+                                <div class="col s12 input-field">                                               
+                                    <h:commandLink value="Atender Cita" styleClass="btn btn-large" action="#{SesionVeterinario.aceptarCita}" />
+                                </div>
+                            </div>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <script>
+            $(document).on("ready", function() {
+                $('#login-page').css({'height': window.innerHeight + 'px'});
+            });
+        </script>  
+    </h:body>
+
+</html>

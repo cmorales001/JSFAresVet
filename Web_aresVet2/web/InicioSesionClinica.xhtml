@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>InicioSesionClinica</title>
+        <f:event type="preRenderView" listener="#{SesionClinica.verificarSesionClinica()}" />
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>           
+    </h:head>
+
+    <h:body style=" background-image: url(registro11.jpg)" >
+        <h:form>
+            <h1 style=" text-align: center ; color: white; font-family: serif; font-size: 100px" >A r e s  V e t</h1>  
+
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+
+                    background-image: linear-gradient(150deg,#FEF9E7 ,#F6DDCC,#F1948A ,#7DCEA0,#A3E4D7,#85929E);
+                    background-size: 250%;
+                    height: 100vh;
+                    animation: fanimado 50s infinite;
+
+                }
+
+                @keyframes fanimado {
+                    0%{
+                    background-position: 0% 50%;
+                }
+                50%{
+                    background-position: 100% 50%;
+                }
+                100%{
+                    background-position: 0% 50%;
+                }
+
+                }
+
+            </style>
+
+
+        </h:form>  
+        <h:form>
+            <h3 style="color:  white" >Bienvenido #{SesionClinica.clinicaSesion.nombre}</h3>    
+
+            <div class="card">
+
+                <p:tabMenu  style="border-color: black ">
+                    <p:menuitem value="Usuario">
+                        <h:commandLink value="Clinica" styleClass="btn btn-large , color : blue " action="EditClinica.xhtml"  style="color: cornsilk"/>
+                    </p:menuitem>
+                    <p:menuitem value="Cerrar Sesion" >
+                        <h:commandLink value="Cerrar Sesion" styleClass="btn btn-large , color : blue   " action="#{SesionClinica.cerrarSesion()}"  style="color: cornsilk "/>
+                    </p:menuitem>
+                </p:tabMenu>
+            </div>
+        </h:form>
+        <style>
+            .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+
+            .customPanelGrid .ui-panelgrid-content {
+                align-items: center;
+            }
+        </style>
+
+
+        <div class="container">
+            <div class="center-align">
+                <div class="row">
+                    <div class="col s6 offset-s3" >
+
+
+
+                        <div class="center-align">
+                            <div class="col s12 input-field" >
+                                <h3 style="color :  crimson; font-family: serif" >Veterinarios de tu Clinica:</h3>
+                            </div>
+                            <div class="col s12 input-field" >
+                                <h5 style="color :  black; font-family: serif" >Veterinarios a tu Servicio(Aceptados):</h5>
+                            </div>
+
+                            <p:dataTable var="idx_cli" value="#{SesionClinica.veterinariosAceptados}">
+                                <p:column headerText="ID Veterinario">
+                                    <h:outputText value="#{idx_cli.idveterinario}"/>
+                                </p:column>
+                                <p:column headerText="Nombres">
+                                    <h:outputText value="#{idx_cli.nombres}"/>
+                                </p:column>
+                                <p:column headerText="Apellidos" >
+                                    <h:outputText value="#{idx_cli.apellidos}"/>
+                                </p:column>
+                                <p:column headerText="Estado" >
+                                    <h:outputText value="#{idx_cli.estado}"/>
+                                </p:column>
+                            </p:dataTable>
+
+
+                        </div>
+
+                        <h:form >  
+
+                            <div class="center-align">
+                                <div class="col s12 input-field" >
+                                    <h5 style="color :  black; font-family: serif" >Veterinarios(No Aceptados):</h5>
+                                    <p:dataTable var="idx_cli" value="#{SesionClinica.veterinariosPorAceptar}">
+                                        <p:column headerText="ID Veterinario">
+                                            <h:outputText value="#{idx_cli.idveterinario}"/>
+                                        </p:column>
+                                        <p:column headerText="Nombres">
+                                            <h:outputText value="#{idx_cli.nombres}"/>
+                                        </p:column>
+                                        <p:column headerText="Apellidos" >
+                                            <h:outputText value="#{idx_cli.apellidos}"/>
+                                        </p:column>
+                                        <p:column headerText="Estado" >
+                                            <h:outputText value="#{idx_cli.estado}"/>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </div>
+                            </div>
+
+                            <div class="col s12 input-field" >
+                                <h:inputText  value="#{SesionClinica.idVeterinario}"/>
+                                <h:outputLabel for="ID Veterinario PorAceptar" value="ID Veterinario PorAceptar" style="color: black; font-family: serif; font-size: 30" />
+                            </div>
+                            <div class="center-align">
+                                <div class="col s12 input-field">                                               
+                                    <h:commandLink value="Aceptar Veterinario" styleClass="btn btn-large" action="#{SesionClinica.AceptarVeterinario}" />
+                                </div>
+                            </div>
+
+                        </h:form> 
+
+
+
+
+
+                        <h:form >  
+
+                            <div class="center-align">
+                                <div class="col s12 input-field" >
+                                    <h3 style="color :  crimson; font-family: serif" >Citas por Atender de tu Clinica:</h3>
+                                </div>
+                                <div class="col s12 input-field" >
+                                    <h4 style="color :  black; font-family: serif" >Citas de Emergencia por atender:</h4>
+                                </div>
+
+                                <p:dataTable var="idx_cli" value="#{SesionClinica.citasEmergencia}">
+                                    <p:column headerText="ID Cita">
+                                        <h:outputText value="#{idx_cli.idcita}"/>
+                                    </p:column>
+                                    <p:column headerText="Tipo">
+                                        <h:outputText value="#{idx_cli.tipocita}"/>
+                                    </p:column>
+                                    <p:column headerText="ID Cliente" >
+                                        <h:outputText value="#{idx_cli.idcliente.apellidos}"/>
+                                    </p:column>
+                                    <p:column headerText="Estado" >
+                                        <h:outputText value="#{idx_cli.estado}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                            <div class="col s12 input-field" >
+                                <h5 style="color :  black; font-family: serif" >Ingresa una Cita por Atender:</h5>
+                            </div>
+
+                            <div class="col s12 input-field" >
+                                <h:inputText  value="#{SesionClinica.idCita}"/>
+                                <h:outputLabel for="ID Cita Por Atender" value="ID Cita Por Atender" style="color: black; font-family: serif; font-size: 30" />
+                            </div>
+                            <div class="center-align">
+                                <div class="col s12 input-field">                                               
+                                    <h:commandLink value="Atender Cita" styleClass="btn btn-large" action="#{SesionClinica.aceptarCita}" />
+                                </div>
+                            </div>
+
+
+
+                        </h:form>
+
+
+
+
+                        <h:form>
+                            <div class="center-align">
+                                <div class="col s12 input-field" >
+                                    <div class="col s12 input-field" >
+                                        <h3 style="color :  black; font-family: serif" >Citas Presenciales por atender:</h3>
+                                    </div>
+                                    <p:dataTable var="idx_cli" value="#{SesionClinica.citasPresenciales}">
+                                        <p:column headerText="ID Cita">
+                                            <h:outputText value="#{idx_cli.idcita}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo">
+                                            <h:outputText value="#{idx_cli.tipocita}"/>
+                                        </p:column>
+                                        <p:column headerText="ID Cliente" >
+                                            <h:outputText value="#{idx_cli.idcliente.apellidos}"/>
+                                        </p:column>
+                                        <p:column headerText="Estado" >
+                                            <h:outputText value="#{idx_cli.estado}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha y Hora Solicitada" >
+                                            <h:outputText value="#{idx_cli.fechareservacion}"/>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                    <div class="col s12 input-field" >
+                                        <h5 style="color :  black; font-family: serif" >Ingresa una Cita por Atender:</h5>
+                                    </div>
+
+                                    <div class="col s12 input-field" >
+                                        <h:inputText  value="#{SesionClinica.idCita}"/>
+                                        <h:outputLabel for="ID Cita Por Atender" value="ID Cita Por Atender" style="color: black; font-family: serif; font-size: 30" />
+                                    </div>
+                                    <div class="center-align">
+                                        <div class="col s12 input-field">                                               
+                                            <h:commandLink value="Atender Cita" styleClass="btn btn-large" action="#{SesionClinica.aceptarCita}" />
+                                        </div>
+                                    </div>
+                                    <div class="center-align">
+                                        <div class="col s12 input-field">                                               
+                                            <h:commandLink value="Eliminar Cita" styleClass="btn btn-large" action="#{SesionClinica.eliminarCita()}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </h:form>
+
+                        <div class="center-align">
+                            <div class="col s12 input-field" >
+                                <div class="col s12 input-field" >
+                                    <h4 style="color :  black; font-family: serif" >Historial de Citas :</h4>
+                                </div>
+                                <p:dataTable var="idx_cli" value="#{SesionClinica.citasHistorial}">
+                                    <p:column headerText="ID Cita">
+                                        <h:outputText value="#{idx_cli.idcita}"/>
+                                    </p:column>
+                                    <p:column headerText="Tipo">
+                                        <h:outputText value="#{idx_cli.tipocita}"/>
+                                    </p:column>
+                                    <p:column headerText="ID Cliente" >
+                                        <h:outputText value=" #{idx_cli.idcliente.nombres} #{idx_cli.idcliente.apellidos} "/>
+                                    </p:column>
+                                    <p:column headerText="Estado" >
+                                        <h:outputText value="#{idx_cli.estado}"/>
+                                    </p:column>
+                                </p:dataTable>
+
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <script>
+            $(document).on("ready", function() {
+                $('#login-page').css({'height': window.innerHeight + 'px'});
+            });
+        </script>  
+    </h:body>
+
+</html>
